@@ -14,7 +14,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return new ProductoCollection(Producto::where('disponible',1)->orderby('id', 'desc')->paginate(10));
+        return new ProductoCollection(Producto::where('disponible',1)->get());
     }
 
     /**
