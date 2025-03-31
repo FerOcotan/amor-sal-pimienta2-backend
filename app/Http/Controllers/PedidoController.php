@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\PedidoProducto;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\PedidoCollection;
 
 class PedidoController extends Controller
 {
@@ -18,7 +19,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        
+        return new PedidoCollection(Pedido::with('user')->with ('productos')->where('estado', 0)->get());
     }
 
     /**
