@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use App\Models\PedidoProducto;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
@@ -18,7 +19,6 @@ class PedidoController extends Controller
     public function index()
     {
         
-        return new PedidoCollection(Pedido::with('user')->with('productos')->where('estado', 0)->get());
     }
 
     /**
@@ -45,21 +45,22 @@ class PedidoController extends Controller
         // Formatear un arreglo 
         $pedido_producto = [];
 
-        foreach($productos as $producto) {
+      foreach($productos as $producto) {
             $pedido_producto[] = [
                 'pedido_id' => $id,
-                'producto_id' => $producto['id'],
-                'cantidad' => $producto['cantidad'],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon:: now()
-            ];
-        }
+                      'producto_id' => $producto['id'],
+                     'cantidad' => $producto['cantidad'],
+                     'created_at' => Carbon::now(),
+                    'updated_at' => Carbon:: now()
+                ];
+             }
 
         // Almacenar en la BD
-        PedidoProducto::insert($pedido_producto);
+       PedidoProducto::insert($pedido_producto);
         
         return [
-            'message' => 'Pedido realizado correctamente, estará listo en unos minutos'
+            'message' => 'Pedido realizado correctamente, estará listo en unos minutos' 
+         
         ];
     }
 
