@@ -23,10 +23,10 @@ class AuthController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // Retornar respuesta exitosa
-        return response()->json([
-            'message' => 'Usuario registrado exitosamente',
+        // Retornar respuesta
+        return [
+            'token' => $user->createToken('token')->plainTextToken,
             'user' => $user
-        ], 201);
+        ];
     }
 }
