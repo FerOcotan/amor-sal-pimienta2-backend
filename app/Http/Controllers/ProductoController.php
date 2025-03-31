@@ -14,7 +14,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return new ProductoCollection(Producto::where('disponible',1)->get());
+        return new ProductoCollection(Producto::all()); // Obtiene todos los productos
+
     }
 
     /**
@@ -38,7 +39,15 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+       // Alternar el valor de disponible entre 1 y 0
+    $producto->disponible = $producto->disponible == 1 ? 0 : 1;
+    $producto->save();
+
+    return [
+        'status' => 'success',
+        'message' => 'Producto actualizado correctamente',
+        'data' => $producto
+    ];
     }
 
     /**
