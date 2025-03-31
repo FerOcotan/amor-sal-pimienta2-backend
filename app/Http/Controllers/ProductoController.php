@@ -14,7 +14,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return new ProductoCollection(Producto::all()); // Obtiene todos los productos
+        return new ProductoCollection(Producto::where('disponible', 1)->get());
 
     }
 
